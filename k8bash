@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Bash script to apply k8s configurations to EKS cluster
+
+# environment config and secrets
+kubectl apply -f aws-secret.yaml
+kubectl apply -f env-secret.yaml
+kubectl apply -f env-configmap.yaml
+
+# deploy docker images from dockerhub
+kubectl apply -f backend-feed-deployment.yaml
+kubectl apply -f backend-user-deployment.yaml
+kubectl apply -f frontend-deployment.yaml
+kubectl apply -f reverseproxy-deployment.yaml
+
+# spin up services
+kubectl apply -f backend-feed-service.yaml
+kubectl apply -f backend-user-service.yaml
+kubectl apply -f frontend-service.yaml
+kubectl apply -f reverseproxy-service.yaml
